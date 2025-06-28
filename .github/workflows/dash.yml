@@ -1,0 +1,31 @@
+name: XMRig DASH Miner
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # Chạy lại mỗi 6 tiếng (UTC)
+
+jobs:
+  dash-mine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # Giới hạn 6 tiếng
+
+    steps:
+    - name: Cài đặt gói cần thiết
+      run: |
+        sudo apt update
+        sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+
+    - name: Tải mã nguồn XMRig
+      run: |
+        git clone https://github.com/xmrig/xmrig.git
+        cd xmrig
+        mkdir build && cd build
+        cmake .. -DWITH_HWLOC=ON -DCMAKE_BUILD_TYPE=Release
+        make -j$(nproc)
+
+    - name: Đào DASH coin qua unmineable
+      run: |
+        cd xmrig/build
+        ./xmrig -o rx.unmineable.com:3333 -a rx -k \
+        -u DASH:Xq4SuvFwAFRs9nrJLk2WWbuqYgauxbxAep.awm_s1 -p x -t $(nproc)
