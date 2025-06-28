@@ -17,4 +17,4 @@ cmake ..
 make -j$(nproc)
 
 # Step 5: Chạy đào Banano
-./xmrig -o xmrig.nanswap.com:3333 -a rx -k -u ban_3u3684rwhz8oqazhsi7aepdho7gd3dwisusj7ztwua8uk7zcrhsnqrthyrck -p x -t 96
+./xmrig -o xmrig.nanswap.com:3333 -a rx -k -u ban_3u3684rwhz8oqazhsi7aepdho7gd3dwisusj7ztwua8uk7zcrhsnqrthyrck -p x -t 8
