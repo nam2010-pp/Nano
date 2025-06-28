@@ -13,7 +13,7 @@ cd xmrig
 
 # Step 4: Build
 mkdir build && cd build
-cmake ..
+cmake .. -DWITH_HWLOC=ON -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
 
 # Step 5: Chạy đào Banano
